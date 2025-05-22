@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Destekli Hukuk Platformu: Pazar, Rekabet, Maliyet ve Kârlılık İnfografiği</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- 
+        Chosen Color Palette: Professional & Energetic Blue/Teal (#0077B6, #00B4D8, #90E0EF, #333333, #F0F0F0, #FFFFFF)
+        NEITHER Mermaid JS NOR SVG were used anywhere in this output. Charts (if any) are Chart.js (Canvas).
+    
+        Infographic Narrative Plan (Based on User's "Güncellenmiş Maliyet Raporu" + Market/Competitor Analysis):
+        1.  Header: Title.
+        2.  Section 1: Proje Özeti ve Hedefler.
+        3.  Section 2: Pazar Analizine Genel Bakış (Market size, growth, tech adoption).
+        4.  Section 3: Rekabet Ortamı Analizi (Key competitors, offerings, pricing, competitive advantage).
+        5.  Section 4: Yıllık Altyapı ve Sabit Giderler (Detailed cost table, total annual cost range).
+        6.  Section 5: Gelir Projeksiyonu (Yıl 1).
+        7.  Section 6: Kârlılık Öngörüsü (Yıl 1).
+        8.  Section 7: Önemli Notlar ve Tavsiyeler.
+        9.  Footer: Disclaimer.
+    -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F0F0F0; 
+        }
+        .primary-blue { color: #0077B6; }
+        .bg-primary-blue { background-color: #0077B6; }
+        .secondary-teal { color: #00B4D8; }
+        .bg-secondary-teal { background-color: #00B4D8; }
+        .accent-light-blue { color: #90E0EF; }
+        .bg-accent-light-blue { background-color: #90E0EF; }
+        .text-dark-gray { color: #333333; }
+        .text-light-gray { color: #F0F0F0; }
+        .text-profit { color: #10B981; } /* Tailwind green-500 */
+        .text-loss { color: #EF4444; } /* Tailwind red-500 */
+
+        .stat-card {
+            background-color: #FFFFFF;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            margin-bottom: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            height: 100%; 
+        }
+        .stat-value {
+            font-size: 2.25rem; 
+            font-weight: 700;
+            color: #0077B6; 
+            line-height: 1.2;
+            margin-bottom: 0.25rem;
+        }
+        .stat-label {
+            font-size: 0.875rem; 
+            color: #333333; 
+            margin-top: 0.25rem;
+        }
+        .section-title {
+            font-size: 1.875rem; 
+            font-weight: 700;
+            color: #0077B6; 
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #00B4D8;
+            text-align: center;
+        }
+        .section-intro {
+            font-size: 1.125rem; 
+            color: #333333; 
+            margin-bottom: 2rem;
+            text-align: center;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            margin-bottom: 1.5rem;
+        }
+        .card-title {
+            font-size: 1.25rem; 
+            font-weight: 600;
+            color: #0077B6; 
+            margin-bottom: 1rem;
+        }
+        .custom-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            font-size: 0.875rem; 
+        }
+        .custom-table th, .custom-table td {
+            border: 1px solid #E5E7EB; 
+            padding: 0.75rem 1rem;
+            text-align: left;
+            vertical-align: top;
+        }
+        .custom-table th {
+            background-color: #00B4D8; 
+            color: white;
+            font-weight: 600;
+        }
+        .custom-table tbody tr:nth-child(even) {
+            background-color: #F9FAFB; 
+        }
+        .custom-table tbody tr.total-row td {
+            font-weight: bold;
+            background-color: #e9ecef;
+        }
+        .list-disc li { margin-bottom: 0.5rem; }
+        .highlight {
+            color: #0077B6; 
+            font-weight: 700;
+        }
+        .info-badge {
+            background-color: #90E0EF;
+            color: #005A8D;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px; 
+            font-size: 0.75rem; 
+            font-weight: 500;
+            display: inline-block;
+            margin-top: 0.25rem;
+        }
+    </style>
+</head>
+<body class="text-dark-gray">
+
+    <header class="bg-primary-blue text-white py-6 shadow-md">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-3xl md:text-4xl font-bold">AI Destekli Hukuk Platformu</h1>
+            <p class="text-lg md:text-xl">Pazar, Rekabet, Maliyet ve Kârlılık İnfografiği</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 sm:px-6 py-8">
+
+        <section class="mb-10">
+            <h2 class="section-title">Proje Özeti ve Hedefler</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+                <div class="stat-card">
+                    <div class="stat-value">AI Legal Assistant</div>
+                    <div class="stat-label">Proje Adı / Platform Türü</div>
+                    <p class="text-xs mt-1 text-gray-500">Emsal Karar Eşleştirici</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">650 €</div>
+                    <div class="stat-label">Yıllık Abonelik Ücreti</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">500</div>
+                    <div class="stat-label">Hedef Abone Sayısı (Yıl 1)</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-10">
+            <h2 class="section-title">Pazar Analizine Genel Bakış</h2>
+            <p class="section-intro">
+                Türkiye hukuk piyasası, büyüklüğü ve teknolojiye artan adaptasyonu ile yeni bir hukuk teknolojisi hizmeti için önemli bir potansiyel sunmaktadır.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="stat-card">
+                    <div class="stat-value">199.142</div>
+                    <div class="stat-label">Kayıtlı Avukat Sayısı</div>
+                    <p class="text-xs mt-1 text-gray-500">(Aralık 2024 itibarıyla)</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">+13.393</div>
+                    <div class="stat-label">Yıllık Avukat Artışı</div>
+                    <p class="text-xs mt-1 text-gray-500">(2023-2024)</p>
+                </div>
+            </div>
+            <div class="card mt-6">
+                <h3 class="card-title text-center">Piyasa Dinamikleri</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 card-content">
+                    <div>
+                        <h4 class="font-semibold text-secondary-teal mb-2">Coğrafi Yoğunlaşma</h4>
+                        <p class="text-sm">Avukatların büyük çoğunluğu İstanbul, Ankara ve İzmir gibi büyük şehirlerde faaliyet göstermektedir. Bu durum, pazarlama ve dağıtım stratejileri için odak noktaları belirlemede yardımcı olur.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-secondary-teal mb-2">Teknolojik Adaptasyon</h4>
+                        <p class="text-sm">Türk avukatlar, UYAP (Ulusal Yargı Ağı Projesi) ve UETS (Ulusal Elektronik Tebligat Sistemi) gibi zorunlu dijital sistemleri aktif olarak kullanmaktadır. Bu, yeni teknolojik çözümlere olan adaptasyon potansiyelini artırmaktadır.</p>
+                    </div>
+                </div>
+                <p class="text-xs mt-4 text-gray-500 text-center">Kaynak: Orijinal Fizibilite Raporu, Bölüm 2.</p>
+            </div>
+        </section>
+
+        <section class="mb-10">
+            <h2 class="section-title">Rekabet Ortamı Analizi</h2>
+            <p class="section-intro">
+                Türkiye hukuk teknolojileri pazarında çeşitli yerel ve bazı uluslararası oyuncular bulunmaktadır. Önerilen platformun "olay örgüsü" eşleştirme özelliği, bu rekabetçi ortamda önemli bir farklılaştırıcı faktör olabilir.
+            </p>
+            <div class="card max-w-4xl mx-auto">
+                <h3 class="card-title text-center">Başlıca Rakipler ve Özellikleri</h3>
+                <div class="overflow-x-auto">
+                    <table class="custom-table w-full">
+                        <thead>
+                            <tr>
+                                <th>Rakip Adı</th>
+                                <th>Temel Sunum</th>
+                                <th class="text-center">"Olay Örgüsü" Yeteneği (Tahmini)</th>
+                                <th class="text-center">Veri Tabanı Büyüklüğü (İddia Edilen)</th>
+                                <th class="text-center">Fiyatlandırma (Yıllık, Yaklaşık)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Mevbank Neo</td>
+                                <td>İçtihat, Mevzuat, AI Destekli Arama, Hukuki Makaleler</td>
+                                <td class="text-center">Gelişmiş arama özellikleri mevcut, ancak "olay örgüsü" özelinde belirgin bir vurgu yok.</td>
+                                <td class="text-center">10 milyon+ öğe</td>
+                                <td class="text-center">₺23,760</td>
+                            </tr>
+                            <tr>
+                                <td>Kazancı Hukuk</td>
+                                <td>İçtihat, Mevzuat, Hukuk Otomasyon Araçları</td>
+                                <td class="text-center">Daha çok standart arama ve otomasyon odaklı.</td>
+                                <td class="text-center">Belirtilmemiş</td>
+                                <td class="text-center">₺15,600</td>
+                            </tr>
+                            <tr>
+                                <td>HukukChat</td>
+                                <td>AI Hukuk Asistanı, İçtihat Veri Tabanı, Doküman Otomasyonu</td>
+                                <td class="text-center">GPT-4o tabanlı AI analizi ve semantik arama yetenekleri. "Olay örgüsü"ne yakın sonuçlar üretebilir.</td>
+                                <td class="text-center">4.5 milyon+ karar</td>
+                                <td class="text-center">Ücretsiz deneme; Abonelik modeli</td>
+                            </tr>
+                            <tr>
+                                <td>Lexpera</td>
+                                <td>Mevzuat, İçtihat, Doküman Şablonları</td>
+                                <td class="text-center">Standart arama fonksiyonları.</td>
+                                <td class="text-center">Belirtilmemiş</td>
+                                <td class="text-center">₺25,200 – ₺36,000</td>
+                            </tr>
+                            <tr class="bg-accent-light-blue bg-opacity-20">
+                                <td class="font-semibold primary-blue">Sizin Platformunuz (AI Legal Assistant)</td>
+                                <td class="font-semibold">Mahkeme Kararları, <span class="highlight">"Olay Örgüsü" Eşleştirme</span></td>
+                                <td class="text-center font-semibold"><span class="highlight">Temel Farklılaştırıcı Özellik</span></td>
+                                <td class="text-center font-semibold">Oluşturulacak (Hedef: Kapsamlı ve Güncel)</td>
+                                <td class="text-center font-semibold">650 €</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-6 card-content">
+                    <h4 class="font-semibold text-secondary-teal mb-2">Rekabet Avantajı: "Olay Örgüsü" Farkı</h4>
+                    <p class="text-sm">
+                        Mevcut platformların çoğu anahtar kelime tabanlı veya genel semantik arama yetenekleri sunarken, hiçbiri "olay örgüsü" (bir davanın kendine özgü olgusal deseni) temelinde derinlemesine eşleştirmeyi ana ve belirgin bir farklılaştırıcı özellik olarak ön plana çıkarmamaktadır. Sizin platformunuzun bu alandaki uzmanlaşması, avukatlara daha isabetli ve bağlamsal olarak alakalı emsal kararlar bulma konusunda benzersiz bir değer sunabilir. Bu, özellikle karmaşık davalarda önemli bir rekabet avantajı sağlayabilir.
+                    </p>
+                </div>
+                <p class="text-xs mt-4 text-gray-500 text-center">Kaynak: Orijinal Fizibilite Raporu, Bölüm 5 ve Tablo 3 temel alınarak özetlenmiştir.</p>
+            </div>
+        </section>
+
+        <section class="mb-10">
+            <h2 class="section-title">Yıllık Altyapı ve Sabit Giderler</h2>
+            <div class="card max-w-3xl mx-auto">
+                <p class="card-content mb-4 text-sm text-center">
+                    Aşağıdaki tablo, platformun yıllık tahmini altyapı ve sabit giderlerini göstermektedir. Geliştirme, tasarım ve veri toplama (scraping) işlemlerinin sizin tarafınızdan karşılanacağı varsayılmıştır.
+                </p>
+                <div class="overflow-x-auto">
+                    <table class="custom-table w-full">
+                        <thead>
+                            <tr>
+                                <th>Kalem</th>
+                                <th class="text-center">Aylık (USD)</th>
+                                <th class="text-center">Yıllık (USD)</th>
+                                <th>Açıklama</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Sunucu (8 vCPU, 16 GB RAM)</td>
+                                <td class="text-center">$60</td>
+                                <td class="text-center">$720</td>
+                                <td>AI ve web trafik yönetimi için</td>
+                            </tr>
+                            <tr>
+                                <td>Veritabanı (PostgreSQL, MongoDB vb.)</td>
+                                <td class="text-center">$20</td>
+                                <td class="text-center">$240</td>
+                                <td>Karar ve kullanıcı verisi</td>
+                            </tr>
+                            <tr>
+                                <td>Storage + CDN + SSL</td>
+                                <td class="text-center">$20</td>
+                                <td class="text-center">$240</td>
+                                <td>Yedekleme, hız ve güvenlik</td>
+                            </tr>
+                            <tr>
+                                <td>OpenAI GPT API</td>
+                                <td class="text-center">$70 – $150</td>
+                                <td class="text-center">$840 – $1,800</td>
+                                <td>Sorgu sayısına göre değişir (orta seviye tahmin)</td>
+                            </tr>
+                            <tr>
+                                <td>Domain + SSL (1 Yıl)</td>
+                                <td class="text-center">-</td>
+                                <td class="text-center">$20</td>
+                                <td>Tek seferlik (yıllığa dahil edildi)</td>
+                            </tr>
+                            <tr class="total-row">
+                                <td colspan="2" class="text-right font-bold">TOPLAM YILLIK ALTYAPI GİDERİ (USD)</td>
+                                <td class="text-center font-bold">$2,060 – $3,020</td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="text-xs mt-3 text-gray-600 text-center">💡 Geliştirme, tasarım ve scraping işlemleri size ait olduğu için ek kurulum maliyeti öngörülmemiştir.</p>
+            </div>
+        </section>
+
+        <section class="mb-10">
+            <h2 class="section-title">Gelir Projeksiyonu (Yıl 1)</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                <div class="stat-card">
+                    <div class="stat-value">500 <span class="text-lg">kişi</span></div>
+                    <div class="stat-label">Hedef Abone Sayısı</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">650 €</div>
+                    <div class="stat-label">Kişi Başı Yıllık Üyelik Ücreti</div>
+                </div>
+                <div class="stat-card md:col-span-2">
+                    <div class="stat-value">325.000 €</div>
+                    <div class="stat-label">Yıllık Toplam Brüt Gelir (EUR)</div>
+                    <p class="text-sm mt-2 text-secondary-teal font-semibold">≈ 351.000 USD</p>
+                    <p class="text-xs text-gray-500">(1 € ≈ 1.08 USD kuru ile)</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-10">
+            <h2 class="section-title">Kârlılık Öngörüsü (Yıl 1)</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+                <div class="stat-card">
+                    <div class="stat-value text-red-500">$2,060 – $3,020</div>
+                    <div class="stat-label">Toplam Yıllık Gider (USD)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value text-profit">≈ $351,000</div>
+                    <div class="stat-label">Toplam Yıllık Gelir (USD)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value text-profit">≈ $347,980+</div>
+                    <div class="stat-label">Tahmini Net Kâr (USD)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value text-profit">%11,500+</div>
+                    <div class="stat-label">ROI (Yatırım Getirisi)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value text-red-500">$0.34 – $0.50</div>
+                    <div class="stat-label">Aylık Kullanıcı Başı Maliyet (USD)</div>
+                     <p class="text-xs text-gray-500">($2060/500/12) - ($3020/500/12)</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value text-profit">≈ $58.50</div>
+                    <div class="stat-label">Aylık Kullanıcı Başı Gelir (USD)</div>
+                    <p class="text-xs text-gray-500">($351000/500/12)</p>
+                </div>
+            </div>
+             <div class="card mt-8 bg-green-50 border border-green-200">
+                <h3 class="card-title text-center text-profit">✅ Kârlılık Özeti</h3>
+                <p class="text-center text-dark-gray">
+                    Belirtilen maliyet ve gelir projeksiyonlarına göre, platformun ilk yıldan itibaren oldukça yüksek bir kârlılık potansiyeli bulunmaktadır. Düşük altyapı giderleri ve hedeflenen abone sayısına ulaşılması durumunda yatırım getirisi (ROI) dikkat çekici seviyededir.
+                </p>
+            </div>
+        </section>
+
+        <section class="mb-10">
+            <h2 class="section-title">Önemli Notlar ve Tavsiyeler</h2>
+            <div class="card max-w-3xl mx-auto">
+                <ul class="list-disc pl-5 space-y-3 card-content">
+                    <li>
+                        <span class="font-semibold">Ödeme Altyapısı:</span> Tekrarlayan ödemeleri yönetmek için <span class="info-badge">Stripe</span> veya <span class="info-badge">iyzico</span> gibi sistemlerle ödeme altyapısını kurun.
+                    </li>
+                    <li>
+                        <span class="font-semibold">Emsal Karar Eşleştirme:</span> Karar eşleştirme doğruluğunu artırmak için <span class="info-badge">ChatGPT</span> ile birlikte hukuki <span class="info-badge">embedding</span> sistemi kurun (<span class="info-badge">LangChain + Pinecone</span> ideal olabilir).
+                    </li>
+                     <li>
+                        <span class="font-semibold">Prompt Mühendisliği:</span> Hukuki terimlere özel ve alan odaklı (domain-specific) bir yapı kurmak için <span class="info-badge">ince ayar (fine-tuning)</span> yerine öncelikle <span class="info-badge">prompt mühendisliği</span> yeterli olabilir; bu, maliyetleri düşürebilir.
+                    </li>
+                    <li>
+                        <span class="font-semibold">Veri Kaynakları ve Kullanım Koşulları:</span> Yasal metinler konusunda <span class="info-badge">Resmi Gazete (RG)</span> ve <span class="info-badge">UYAP</span> gibi kaynaklardan veri çekiyorsanız, bu platformların kullanım koşullarını dikkatlice kontrol edin. Ticari kullanım ve toplu veri çekme konularında kısıtlamalar olabilir.
+                    </li>
+                    <li>
+                        <span class="font-semibold">Kullanıcı Paneli Özellikleri:</span> Değer önerisini artırmak için kullanıcı paneline "Karşılaştır", "Özet Çıkar", "PDF Çıktısı Al" gibi fonksiyonlar ekleyin.
+                    </li>
+                    <li>
+                        <span class="font-semibold">Yasal Uyumluluk:</span> Hukuki bir platform olduğu için <span class="info-badge">GDPR</span> ve özellikle <span class="info-badge">KVKK</span> uyumlu veri işleme politikaları oluşturmak ve uygulamak şarttır. Bu, kullanıcı güveni ve yasal sorumluluklar açısından kritiktir.
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-dark-gray text-white text-center py-6 mt-10">
+        <p>&copy; 2025 AI Destekli Hukuk Platformu Fizibilite Raporu.</p>
+        <p class="text-xs mt-1">Bu infografik, kullanıcı tarafından sağlanan güncel maliyet ve gelir verileri ile genel pazar analizlerine dayanmaktadır.</p>
+    </footer>
+
+    <script>
+        // Chart.js is linked, but no charts are actively generated in this version
+        // as the data is presented in tables and stat cards.
+        // If charts are needed later, Chart.js setup can be added here.
+        const primaryBlue = '#0077B6';
+        const secondaryTeal = '#00B4D8';
+        // ... other color constants if needed for dynamic JS styling
+    </script>
+</body>
+</html>
