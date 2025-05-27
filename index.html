@@ -3,425 +3,884 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Destekli Hukuk Platformu: Pazar, Rekabet, Maliyet ve Kârlılık İnfografiği</title>
+    <title>Derin Araştırma: Türkiye Hukuk Teknolojileri Sektör İnfografiği</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <!-- 
-        Chosen Color Palette: Professional & Energetic Blue/Teal (#0077B6, #00B4D8, #90E0EF, #333333, #F0F0F0, #FFFFFF)
-        NEITHER Mermaid JS NOR SVG were used anywhere in this output. Charts (if any) are Chart.js (Canvas).
-    
-        Infographic Narrative Plan (Based on User's "Güncellenmiş Maliyet Raporu" + Market/Competitor Analysis):
-        1.  Header: Title.
-        2.  Section 1: Proje Özeti ve Hedefler.
-        3.  Section 2: Pazar Analizine Genel Bakış (Market size, growth, tech adoption).
-        4.  Section 3: Rekabet Ortamı Analizi (Key competitors, offerings, pricing, competitive advantage).
-        5.  Section 4: Yıllık Altyapı ve Sabit Giderler (Detailed cost table, total annual cost range).
-        6.  Section 5: Gelir Projeksiyonu (Yıl 1).
-        7.  Section 6: Kârlılık Öngörüsü (Yıl 1).
-        8.  Section 7: Önemli Notlar ve Tavsiyeler.
-        9.  Footer: Disclaimer.
-    -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #F0F0F0; 
+            background-color: #f4f7f9; /* Daha yumuşak bir açık gri */
+            scroll-behavior: smooth;
         }
-        .primary-blue { color: #0077B6; }
-        .bg-primary-blue { background-color: #0077B6; }
-        .secondary-teal { color: #00B4D8; }
-        .bg-secondary-teal { background-color: #00B4D8; }
-        .accent-light-blue { color: #90E0EF; }
-        .bg-accent-light-blue { background-color: #90E0EF; }
-        .text-dark-gray { color: #333333; }
-        .text-light-gray { color: #F0F0F0; }
-        .text-profit { color: #10B981; } /* Tailwind green-500 */
-        .text-loss { color: #EF4444; } /* Tailwind red-500 */
-
-        .stat-card {
-            background-color: #FFFFFF;
-            border-radius: 0.5rem;
-            padding: 1.5rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            margin-bottom: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            height: 100%; 
-        }
-        .stat-value {
-            font-size: 2.25rem; 
-            font-weight: 700;
-            color: #0077B6; 
-            line-height: 1.2;
-            margin-bottom: 0.25rem;
-        }
-        .stat-label {
-            font-size: 0.875rem; 
-            color: #333333; 
-            margin-top: 0.25rem;
-        }
-        .section-title {
-            font-size: 1.875rem; 
-            font-weight: 700;
-            color: #0077B6; 
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid #00B4D8;
-            text-align: center;
-        }
-        .section-intro {
-            font-size: 1.125rem; 
-            color: #333333; 
-            margin-bottom: 2rem;
-            text-align: center;
-            max-width: 800px;
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 580px; 
             margin-left: auto;
             margin-right: auto;
+            height: 330px; 
+            max-height: 400px; 
         }
-        .card {
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 360px;
+                max-height: 430px;
+            }
+        }
+        .stat-card {
             background-color: white;
-            border-radius: 0.5rem;
-            padding: 1.5rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            margin-bottom: 1.5rem;
+            border-radius: 0.75rem; 
+            box-shadow: 0 6px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 8px -2px rgba(0, 0, 0, 0.05);
+            padding: 1.75rem; /* Biraz daha fazla padding */
+            margin-bottom: 1.75rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        .card-title {
-            font-size: 1.25rem; 
-            font-weight: 600;
-            color: #0077B6; 
-            margin-bottom: 1rem;
+        .stat-card:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.07);
         }
-        .custom-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1rem;
-            font-size: 0.875rem; 
+        .swot-box {
+            border: 1px solid;
+            padding: 1.25rem;
+            border-radius: 0.6rem;
+            min-height: 170px; 
+            display: flex;
+            flex-direction: column;
+            background-color: #ffffff;
+             transition: box-shadow 0.3s ease;
         }
-        .custom-table th, .custom-table td {
-            border: 1px solid #E5E7EB; 
-            padding: 0.75rem 1rem;
-            text-align: left;
-            vertical-align: top;
+         .swot-box:hover {
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
         }
-        .custom-table th {
-            background-color: #00B4D8; 
-            color: white;
-            font-weight: 600;
-        }
-        .custom-table tbody tr:nth-child(even) {
-            background-color: #F9FAFB; 
-        }
-        .custom-table tbody tr.total-row td {
-            font-weight: bold;
-            background-color: #e9ecef;
-        }
-        .list-disc li { margin-bottom: 0.5rem; }
-        .highlight {
-            color: #0077B6; 
-            font-weight: 700;
-        }
-        .info-badge {
-            background-color: #90E0EF;
-            color: #005A8D;
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px; 
-            font-size: 0.75rem; 
-            font-weight: 500;
-            display: inline-block;
-            margin-top: 0.25rem;
-        }
-    </style>
-</head>
-<body class="text-dark-gray">
+        .swot-box h4 { margin-bottom: 0.85rem; font-weight: 600; }
+        .swot-box ul { flex-grow: 1; }
 
-    <header class="bg-primary-blue text-white py-6 shadow-md">
-        <div class="container mx-auto px-6 text-center">
-            <h1 class="text-3xl md:text-4xl font-bold">AI Destekli Hukuk Platformu</h1>
-            <p class="text-lg md:text-xl">Pazar, Rekabet, Maliyet ve Kârlılık İnfografiği</p>
+        .flowchart-step {
+            background-color: #e9f5ff; /* Daha açık, sofistike bir mavi */
+            border: 1px solid #b3e0ff; 
+            color: #1e3a8a; /* Daha koyu, okunaklı bir mavi */
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            text-align: center;
+            margin-bottom: 1.25rem;
+            box-shadow: 0 3px 7px rgba(0,0,0,0.07);
+            transition: transform 0.2s ease;
+        }
+        .flowchart-step:hover {
+            transform: translateY(-3px);
+        }
+        .flowchart-arrow {
+            font-size: 2.25rem; 
+            color: #2563eb; /* Canlı, modern bir mavi */
+            text-align: center;
+            margin: 0.1rem 0;
+        }
+
+        /* Renk Paleti: "Modern ve Güvenilir Maviler" */
+        /* Ana Mavi (Header, Başlıklar): #2563EB (Tailwind Blue 600) */
+        /* İkincil Mavi (Grafikler, Vurgular): #3B82F6 (Tailwind Blue 500) */
+        /* Açık Mavi (Arka planlar, Detaylar): #EFF6FF (Tailwind Blue 50) */
+        /* Kontrast/Vurgu (Grafikler, CTA): #F59E0B (Tailwind Amber 500) */
+        /* Metin Rengi (Ana): #1F2937 (Tailwind Gray 800) */
+        /* Metin Rengi (İkincil): #4B5563 (Tailwind Gray 600) */
+
+        .header-bg { background-color: #2563EB; } 
+        .accent-color { color: #F59E0B; } 
+        .text-main-blue { color: #2563EB; }
+        .text-secondary-blue { color: #3B82F6; }
+        .bg-light-blue-custom { background-color: #EFF6FF; }
+        .border-main-blue { border-color: #2563EB; }
+
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000; /* Diğer elementlerin üzerinde kalması için artırıldı */
+            background-color: rgba(255, 255, 255, 0.97); 
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px); /* Safari için */
+            padding: 0.85rem 0; 
+            box-shadow: 0 3px 6px rgba(0,0,0,0.06);
+        }
+        .sticky-nav a {
+            transition: color 0.25s ease, border-bottom-color 0.25s ease;
+            padding-bottom: 0.3rem;
+            border-bottom: 2px solid transparent;
+            color: #4B5563; /* İkincil Metin Rengi */
+        }
+        .sticky-nav a:hover, .sticky-nav a.active {
+            color: #2563EB; /* Ana Mavi */
+            border-bottom-color: #F59E0B; /* Kontrast */
+        }
+        .section-title {
+            font-size: 1.85rem; /* 29.6px */
+            line-height: 2.35rem; /* 37.6px */
+            font-weight: 700; /* Daha belirgin */
+        }
+        @media (min-width: 640px) {
+            .section-title {
+                font-size: 2.15rem; /* 34.4px */
+                line-height: 2.65rem; /* 42.4px */
+            }
+        }
+         @media (min-width: 1024px) {
+            .section-title {
+                font-size: 2.5rem; /* 40px */
+                line-height: 3rem; /* 48px */
+            }
+        }
+        .big-stat {
+            font-size: 2.75rem; /* Daha büyük */
+            font-weight: 800; /* Daha kalın */
+            color: #2563EB; 
+        }
+         @media (min-width: 768px) {
+            .big-stat {
+                font-size: 3.75rem;
+            }
+        }
+        .text-content {
+            color: #1F2937; /* Ana metin rengi */
+        }
+        .text-muted {
+            color: #4B5563; /* İkincil metin rengi */
+        }
+        .source-text {
+            font-size: 0.75rem; /* Kaynak metni küçültüldü */
+            color: #6B7280; /* Tailwind Gray 500 */
+        }
+
+    </style>
+    <!-- 
+        HTML Yorumu: Infografik Planı
+        Bu infografik, "Derin Araştırma Pazar Analizi Raporu" (ID: 47f46435-55ef-40a9-9ed4-755e13041713) temel alınarak Türkiye'deki hukuk teknolojileri pazarını ve "Derin Araştırma" adlı varsayımsal bir yapay zeka platformunun konumunu analiz etmektedir.
+        Sunulan veriler, rapordaki bilgilere, genel sektör bilgilerine ve bazı durumlarda raporda belirtildiği gibi varsayımlara dayanmaktadır.
+
+        Bölümler:
+        1. Giriş: Hukuk Teknolojilerinin Yükselişi ve "Derin Araştırma"nın Yeri
+        2. Türkiye LegalTech Pazarına Genel Bakış (Büyüklük, Büyüme, İtici Güçler/Engeller)
+        3. Yapay Zeka Adaptasyonu ve Avukat İhtiyaçları
+        4. Rekabet Ortamı ve "Derin Araştırma" SWOT Analizi
+        5. Hedef Kitle: Türk Avukatları (Demografi, Teknoloji Kullanımı)
+        6. "Derin Araştırma" Çözümü: "Olay Örgüsü" Eşleştirme Süreci
+        7. İş Modeli Özeti ve Gelecek Perspektifi
+
+        Seçilen Renk Paleti Adı: "Modern ve Güvenilir Maviler" (Ana: #2563EB, İkincil: #3B82F6, Kontrast: #F59E0B)
+
+        Kullanılan Görselleştirmeler ve Gerekçeleri (NO SVG, NO MERMAID JS Kuralına Uygun):
+        - Tahmini Türkiye LegalTech Pazar Büyüklüğü: Bar Chart (Chart.js) - Yıllık değerleri karşılaştırma.
+        - Global LegalTech YBBO (CAGR): Line Chart (Chart.js) - Zaman içindeki trendi gösterme.
+        - Türkiye'de Avukatların YZ Araçlarına Yaklaşımı: Donut Chart (Chart.js) - Bir bütünün parçalarını gösterme.
+        - Avukatların Teknoloji İhtiyaç Önceliği: Horizontal Bar Chart (Chart.js) - Farklı kategorilerdeki ihtiyaçları karşılaştırma.
+        - Türkiye LegalTech Pazarındaki Tahmini Oyuncu Dağılımı: Pie Chart (Chart.js) - Pazar payı dağılımını gösterme.
+        - SWOT Analizi: Yapılandırılmış HTML/CSS (Tailwind) - Metin bazlı gruplamayı net gösterme.
+        - Avukat Demografisi (Büyük Şehirler - Cinsiyet): Stacked Bar Chart (Chart.js) - Farklı demografik grupların kompozisyonunu gösterme.
+        - Avukatların Teknoloji Kullanım Alanları: Radar Chart (Chart.js) - Birden fazla kullanım alışkanlığını tek bir grafikte karşılaştırma.
+        - "Olay Örgüsü" Eşleştirme Süreci: Yapılandırılmış HTML/CSS (Tailwind) ile Akış Şeması Tarzı - Adım adım süreci net gösterme.
+        - Öne Çıkan Sayılar (Tek Büyük Sayı): HTML/CSS - Önemli istatistikleri vurgulama.
+
+        Mermaid JS ve SVG kullanılmamıştır. Tüm grafikler Chart.js ile canvas üzerine çizilmiştir. Diyagramlar HTML/CSS ile oluşturulmuştur.
+    -->
+</head>
+<body class="text-content">
+
+    <nav class="sticky-nav">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-wrap justify-center items-center space-x-3 sm:space-x-5 lg:space-x-7">
+                <a href="#giris" class="text-sm sm:text-base font-medium">GİRİŞ</a>
+                <a href="#pazar-genel-bakis" class="text-sm sm:text-base font-medium">PAZAR</a>
+                <a href="#yz-adaptasyon-ihtiyaclar" class="text-sm sm:text-base font-medium">YZ & İHTİYAÇLAR</a>
+                <a href="#rekabet-swot" class="text-sm sm:text-base font-medium">REKABET & SWOT</a>
+                <a href="#hedef-kitle" class="text-sm sm:text-base font-medium">HEDEF KİTLE</a>
+                <a href="#cozum-surec" class="text-sm sm:text-base font-medium">ÇÖZÜM</a>
+                <a href="#is-modeli-gelecek" class="text-sm sm:text-base font-medium">GELECEK</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="header-bg text-white py-16 sm:py-24 text-center">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <img src="https://placehold.co/140x140/FFFFFF/2563EB?text=DA&font=Inter" alt="Derin Araştırma Logo Placeholder" class="mx-auto mb-6 h-28 w-28 sm:h-32 sm:w-32 rounded-full shadow-2xl border-4 border-white" onerror="this.src='https://placehold.co/140x140/FFFFFF/2563EB?text=DA&font=Inter'; this.onerror=null;">
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-4 tracking-tight">Derin Araştırma</h1>
+            <p class="text-xl sm:text-2xl lg:text-3xl font-light opacity-90 mb-5">Türkiye Hukuk Teknolojileri Sektör Analizi</p>
+            <p class="text-md sm:text-lg text-gray-200 max-w-2xl mx-auto">Yapay Zeka Destekli "Olay Örgüsü" Eşleştirme Platformu Pazar Araştırması ve Fizibilite Raporu Özeti</p>
         </div>
     </header>
 
-    <main class="container mx-auto px-4 sm:px-6 py-8">
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
 
-        <section class="mb-10">
-            <h2 class="section-title">Proje Özeti ve Hedefler</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
-                <div class="stat-card">
-                    <div class="stat-value">AI Legal Assistant</div>
-                    <div class="stat-label">Proje Adı / Platform Türü</div>
-                    <p class="text-xs mt-1 text-gray-500">Emsal Karar Eşleştirici</p>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value">650 €</div>
-                    <div class="stat-label">Yıllık Abonelik Ücreti</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value">500</div>
-                    <div class="stat-label">Hedef Abone Sayısı (Yıl 1)</div>
-                </div>
-            </div>
-        </section>
-
-        <section class="mb-10">
-            <h2 class="section-title">Pazar Analizine Genel Bakış</h2>
-            <p class="section-intro">
-                Türkiye hukuk piyasası, büyüklüğü ve teknolojiye artan adaptasyonu ile yeni bir hukuk teknolojisi hizmeti için önemli bir potansiyel sunmaktadır.
-            </p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="stat-card">
-                    <div class="stat-value">199.142</div>
-                    <div class="stat-label">Kayıtlı Avukat Sayısı</div>
-                    <p class="text-xs mt-1 text-gray-500">(Aralık 2024 itibarıyla)</p>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value">+13.393</div>
-                    <div class="stat-label">Yıllık Avukat Artışı</div>
-                    <p class="text-xs mt-1 text-gray-500">(2023-2024)</p>
-                </div>
-            </div>
-            <div class="card mt-6">
-                <h3 class="card-title text-center">Piyasa Dinamikleri</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 card-content">
-                    <div>
-                        <h4 class="font-semibold text-secondary-teal mb-2">Coğrafi Yoğunlaşma</h4>
-                        <p class="text-sm">Avukatların büyük çoğunluğu İstanbul, Ankara ve İzmir gibi büyük şehirlerde faaliyet göstermektedir. Bu durum, pazarlama ve dağıtım stratejileri için odak noktaları belirlemede yardımcı olur.</p>
-                    </div>
-                    <div>
-                        <h4 class="font-semibold text-secondary-teal mb-2">Teknolojik Adaptasyon</h4>
-                        <p class="text-sm">Türk avukatlar, UYAP (Ulusal Yargı Ağı Projesi) ve UETS (Ulusal Elektronik Tebligat Sistemi) gibi zorunlu dijital sistemleri aktif olarak kullanmaktadır. Bu, yeni teknolojik çözümlere olan adaptasyon potansiyelini artırmaktadır.</p>
-                    </div>
-                </div>
-                <p class="text-xs mt-4 text-gray-500 text-center">Kaynak: Orijinal Fizibilite Raporu, Bölüm 2.</p>
-            </div>
-        </section>
-
-        <section class="mb-10">
-            <h2 class="section-title">Rekabet Ortamı Analizi</h2>
-            <p class="section-intro">
-                Türkiye hukuk teknolojileri pazarında çeşitli yerel ve bazı uluslararası oyuncular bulunmaktadır. Önerilen platformun "olay örgüsü" eşleştirme özelliği, bu rekabetçi ortamda önemli bir farklılaştırıcı faktör olabilir.
-            </p>
-            <div class="card max-w-4xl mx-auto">
-                <h3 class="card-title text-center">Başlıca Rakipler ve Özellikleri</h3>
-                <div class="overflow-x-auto">
-                    <table class="custom-table w-full">
-                        <thead>
-                            <tr>
-                                <th>Rakip Adı</th>
-                                <th>Temel Sunum</th>
-                                <th class="text-center">"Olay Örgüsü" Yeteneği (Tahmini)</th>
-                                <th class="text-center">Veri Tabanı Büyüklüğü (İddia Edilen)</th>
-                                <th class="text-center">Fiyatlandırma (Yıllık, Yaklaşık)</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Mevbank Neo</td>
-                                <td>İçtihat, Mevzuat, AI Destekli Arama, Hukuki Makaleler</td>
-                                <td class="text-center">Gelişmiş arama özellikleri mevcut, ancak "olay örgüsü" özelinde belirgin bir vurgu yok.</td>
-                                <td class="text-center">10 milyon+ öğe</td>
-                                <td class="text-center">₺23,760</td>
-                            </tr>
-                            <tr>
-                                <td>Kazancı Hukuk</td>
-                                <td>İçtihat, Mevzuat, Hukuk Otomasyon Araçları</td>
-                                <td class="text-center">Daha çok standart arama ve otomasyon odaklı.</td>
-                                <td class="text-center">Belirtilmemiş</td>
-                                <td class="text-center">₺15,600</td>
-                            </tr>
-                            <tr>
-                                <td>HukukChat</td>
-                                <td>AI Hukuk Asistanı, İçtihat Veri Tabanı, Doküman Otomasyonu</td>
-                                <td class="text-center">GPT-4o tabanlı AI analizi ve semantik arama yetenekleri. "Olay örgüsü"ne yakın sonuçlar üretebilir.</td>
-                                <td class="text-center">4.5 milyon+ karar</td>
-                                <td class="text-center">Ücretsiz deneme; Abonelik modeli</td>
-                            </tr>
-                            <tr>
-                                <td>Lexpera</td>
-                                <td>Mevzuat, İçtihat, Doküman Şablonları</td>
-                                <td class="text-center">Standart arama fonksiyonları.</td>
-                                <td class="text-center">Belirtilmemiş</td>
-                                <td class="text-center">₺25,200 – ₺36,000</td>
-                            </tr>
-                            <tr class="bg-accent-light-blue bg-opacity-20">
-                                <td class="font-semibold primary-blue">Sizin Platformunuz (AI Legal Assistant)</td>
-                                <td class="font-semibold">Mahkeme Kararları, <span class="highlight">"Olay Örgüsü" Eşleştirme</span></td>
-                                <td class="text-center font-semibold"><span class="highlight">Temel Farklılaştırıcı Özellik</span></td>
-                                <td class="text-center font-semibold">Oluşturulacak (Hedef: Kapsamlı ve Güncel)</td>
-                                <td class="text-center font-semibold">650 €</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="mt-6 card-content">
-                    <h4 class="font-semibold text-secondary-teal mb-2">Rekabet Avantajı: "Olay Örgüsü" Farkı</h4>
-                    <p class="text-sm">
-                        Mevcut platformların çoğu anahtar kelime tabanlı veya genel semantik arama yetenekleri sunarken, hiçbiri "olay örgüsü" (bir davanın kendine özgü olgusal deseni) temelinde derinlemesine eşleştirmeyi ana ve belirgin bir farklılaştırıcı özellik olarak ön plana çıkarmamaktadır. Sizin platformunuzun bu alandaki uzmanlaşması, avukatlara daha isabetli ve bağlamsal olarak alakalı emsal kararlar bulma konusunda benzersiz bir değer sunabilir. Bu, özellikle karmaşık davalarda önemli bir rekabet avantajı sağlayabilir.
-                    </p>
-                </div>
-                <p class="text-xs mt-4 text-gray-500 text-center">Kaynak: Orijinal Fizibilite Raporu, Bölüm 5 ve Tablo 3 temel alınarak özetlenmiştir.</p>
-            </div>
-        </section>
-
-        <section class="mb-10">
-            <h2 class="section-title">Yıllık Altyapı ve Sabit Giderler</h2>
-            <div class="card max-w-3xl mx-auto">
-                <p class="card-content mb-4 text-sm text-center">
-                    Aşağıdaki tablo, platformun yıllık tahmini altyapı ve sabit giderlerini göstermektedir. Geliştirme, tasarım ve veri toplama (scraping) işlemlerinin sizin tarafınızdan karşılanacağı varsayılmıştır.
+        <section id="giris" class="mb-16 sm:mb-24 scroll-mt-24">
+            <h2 class="section-title text-main-blue mb-8 text-center">Giriş: Hukuk Teknolojilerinin Yükselişi ve "Derin Araştırma"nın Konumu</h2>
+            <div class="bg-white p-6 sm:p-10 rounded-xl shadow-2xl">
+                <p class="text-base sm:text-lg leading-relaxed mb-5 text-muted">
+                    Türkiye'de hukuk sektörü, dijitalleşmenin ivme kazandığı bir dönüşümün eşiğindedir. Hukuk Teknolojileri (LegalTech), avukatların geleneksel çalışma yöntemlerini modernize ederek <strong class="font-semibold text-secondary-blue">verimliliği artırma</strong>, <strong class="font-semibold text-secondary-blue">maliyetleri optimize etme</strong> ve <strong class="font-semibold text-secondary-blue">adalete erişimi demokratikleştirme</strong> gibi önemli vaatler sunmaktadır. Bu ekosistemde, özellikle Yapay Zeka (AI) tabanlı uygulamalar, karmaşık hukuki analizleri otomatikleştirme, karar destek sistemlerini zenginleştirme ve hukuki araştırmalara yeni bir boyut kazandırma potansiyeliyle öne çıkmaktadır.
                 </p>
-                <div class="overflow-x-auto">
-                    <table class="custom-table w-full">
-                        <thead>
-                            <tr>
-                                <th>Kalem</th>
-                                <th class="text-center">Aylık (USD)</th>
-                                <th class="text-center">Yıllık (USD)</th>
-                                <th>Açıklama</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Sunucu (8 vCPU, 16 GB RAM)</td>
-                                <td class="text-center">$60</td>
-                                <td class="text-center">$720</td>
-                                <td>AI ve web trafik yönetimi için</td>
-                            </tr>
-                            <tr>
-                                <td>Veritabanı (PostgreSQL, MongoDB vb.)</td>
-                                <td class="text-center">$20</td>
-                                <td class="text-center">$240</td>
-                                <td>Karar ve kullanıcı verisi</td>
-                            </tr>
-                            <tr>
-                                <td>Storage + CDN + SSL</td>
-                                <td class="text-center">$20</td>
-                                <td class="text-center">$240</td>
-                                <td>Yedekleme, hız ve güvenlik</td>
-                            </tr>
-                            <tr>
-                                <td>OpenAI GPT API</td>
-                                <td class="text-center">$70 – $150</td>
-                                <td class="text-center">$840 – $1,800</td>
-                                <td>Sorgu sayısına göre değişir (orta seviye tahmin)</td>
-                            </tr>
-                            <tr>
-                                <td>Domain + SSL (1 Yıl)</td>
-                                <td class="text-center">-</td>
-                                <td class="text-center">$20</td>
-                                <td>Tek seferlik (yıllığa dahil edildi)</td>
-                            </tr>
-                            <tr class="total-row">
-                                <td colspan="2" class="text-right font-bold">TOPLAM YILLIK ALTYAPI GİDERİ (USD)</td>
-                                <td class="text-center font-bold">$2,060 – $3,020</td>
-                                <td></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <p class="text-xs mt-3 text-gray-600 text-center">💡 Geliştirme, tasarım ve scraping işlemleri size ait olduğu için ek kurulum maliyeti öngörülmemiştir.</p>
-            </div>
-        </section>
-
-        <section class="mb-10">
-            <h2 class="section-title">Gelir Projeksiyonu (Yıl 1)</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-                <div class="stat-card">
-                    <div class="stat-value">500 <span class="text-lg">kişi</span></div>
-                    <div class="stat-label">Hedef Abone Sayısı</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value">650 €</div>
-                    <div class="stat-label">Kişi Başı Yıllık Üyelik Ücreti</div>
-                </div>
-                <div class="stat-card md:col-span-2">
-                    <div class="stat-value">325.000 €</div>
-                    <div class="stat-label">Yıllık Toplam Brüt Gelir (EUR)</div>
-                    <p class="text-sm mt-2 text-secondary-teal font-semibold">≈ 351.000 USD</p>
-                    <p class="text-xs text-gray-500">(1 € ≈ 1.08 USD kuru ile)</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="mb-10">
-            <h2 class="section-title">Kârlılık Öngörüsü (Yıl 1)</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
-                <div class="stat-card">
-                    <div class="stat-value text-red-500">$2,060 – $3,020</div>
-                    <div class="stat-label">Toplam Yıllık Gider (USD)</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value text-profit">≈ $351,000</div>
-                    <div class="stat-label">Toplam Yıllık Gelir (USD)</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value text-profit">≈ $347,980+</div>
-                    <div class="stat-label">Tahmini Net Kâr (USD)</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value text-profit">%11,500+</div>
-                    <div class="stat-label">ROI (Yatırım Getirisi)</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value text-red-500">$0.34 – $0.50</div>
-                    <div class="stat-label">Aylık Kullanıcı Başı Maliyet (USD)</div>
-                     <p class="text-xs text-gray-500">($2060/500/12) - ($3020/500/12)</p>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value text-profit">≈ $58.50</div>
-                    <div class="stat-label">Aylık Kullanıcı Başı Gelir (USD)</div>
-                    <p class="text-xs text-gray-500">($351000/500/12)</p>
-                </div>
-            </div>
-             <div class="card mt-8 bg-green-50 border border-green-200">
-                <h3 class="card-title text-center text-profit">✅ Kârlılık Özeti</h3>
-                <p class="text-center text-dark-gray">
-                    Belirtilen maliyet ve gelir projeksiyonlarına göre, platformun ilk yıldan itibaren oldukça yüksek bir kârlılık potansiyeli bulunmaktadır. Düşük altyapı giderleri ve hedeflenen abone sayısına ulaşılması durumunda yatırım getirisi (ROI) dikkat çekici seviyededir.
+                <p class="text-base sm:text-lg leading-relaxed text-muted">
+                    Bu infografik, "Derin Araştırma Pazar Analizi Raporu"nda sunulan kapsamlı veriler ve analizler doğrultusunda, Türkiye LegalTech pazarının güncel panoramasını, büyüme dinamiklerini, temel aktörlerini ve rekabet koşullarını görselleştirmektedir. "Derin Araştırma" adlı yenilikçi yapay zeka platformumuzun, Türk avukatlarının en kritik ihtiyaçlarından biri olan <strong class="font-semibold text-main-blue">"olay örgüsü" bazlı, bağlamsal emsal karar araştırması</strong> alanında nasıl benzersiz bir değer önerisi sunduğunu ve pazardaki potansiyel konumunu ortaya koymayı amaçlamaktadır.
                 </p>
             </div>
         </section>
 
-        <section class="mb-10">
-            <h2 class="section-title">Önemli Notlar ve Tavsiyeler</h2>
-            <div class="card max-w-3xl mx-auto">
-                <ul class="list-disc pl-5 space-y-3 card-content">
-                    <li>
-                        <span class="font-semibold">Ödeme Altyapısı:</span> Tekrarlayan ödemeleri yönetmek için <span class="info-badge">Stripe</span> veya <span class="info-badge">iyzico</span> gibi sistemlerle ödeme altyapısını kurun.
-                    </li>
-                    <li>
-                        <span class="font-semibold">Emsal Karar Eşleştirme:</span> Karar eşleştirme doğruluğunu artırmak için <span class="info-badge">ChatGPT</span> ile birlikte hukuki <span class="info-badge">embedding</span> sistemi kurun (<span class="info-badge">LangChain + Pinecone</span> ideal olabilir).
-                    </li>
-                     <li>
-                        <span class="font-semibold">Prompt Mühendisliği:</span> Hukuki terimlere özel ve alan odaklı (domain-specific) bir yapı kurmak için <span class="info-badge">ince ayar (fine-tuning)</span> yerine öncelikle <span class="info-badge">prompt mühendisliği</span> yeterli olabilir; bu, maliyetleri düşürebilir.
-                    </li>
-                    <li>
-                        <span class="font-semibold">Veri Kaynakları ve Kullanım Koşulları:</span> Yasal metinler konusunda <span class="info-badge">Resmi Gazete (RG)</span> ve <span class="info-badge">UYAP</span> gibi kaynaklardan veri çekiyorsanız, bu platformların kullanım koşullarını dikkatlice kontrol edin. Ticari kullanım ve toplu veri çekme konularında kısıtlamalar olabilir.
-                    </li>
-                    <li>
-                        <span class="font-semibold">Kullanıcı Paneli Özellikleri:</span> Değer önerisini artırmak için kullanıcı paneline "Karşılaştır", "Özet Çıkar", "PDF Çıktısı Al" gibi fonksiyonlar ekleyin.
-                    </li>
-                    <li>
-                        <span class="font-semibold">Yasal Uyumluluk:</span> Hukuki bir platform olduğu için <span class="info-badge">GDPR</span> ve özellikle <span class="info-badge">KVKK</span> uyumlu veri işleme politikaları oluşturmak ve uygulamak şarttır. Bu, kullanıcı güveni ve yasal sorumluluklar açısından kritiktir.
-                    </li>
-                </ul>
+        <section id="pazar-genel-bakis" class="mb-16 sm:mb-24 scroll-mt-24">
+            <h2 class="section-title text-main-blue mb-10 text-center">Türkiye LegalTech Pazarına Genel Bakış</h2>
+            <div class="text-center text-muted mb-12 max-w-3xl mx-auto leading-relaxed">
+                Global LegalTech pazarının 2024 itibarıyla <span class="big-stat accent-color !text-4xl">~30 Milyar USD</span> değere ulaştığı ve yıllık <span class="font-semibold text-secondary-blue">%9-10</span> YBBO (CAGR) ile büyüdüğü gözlemlenmektedir. Türkiye'de BİT sektörü 2022'de <span class="font-semibold text-secondary-blue">24.7 Milyar USD</span> hacme erişirken, TL bazında yıllık <span class="font-semibold text-secondary-blue">%25.2</span> büyüme kaydetmiştir. Bu makro göstergeler, Türkiye LegalTech pazarının da önemli bir gelişim potansiyeli taşıdığını göstermektedir.
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12">
+                <div class="stat-card">
+                    <h3 class="text-xl lg:text-2xl font-semibold text-secondary-blue mb-5 text-center">Tahmini Türkiye LegalTech Pazar Büyüklüğü</h3>
+                    <div class="chart-container">
+                        <canvas id="turkeyMarketSizeChart"></canvas>
+                    </div>
+                    <p class="source-text mt-4 text-center">Kaynak: Derin Araştırma Raporu (Varsayımsal Projeksiyonlar), 2025</p>
+                </div>
+                <div class="stat-card">
+                    <h3 class="text-xl lg:text-2xl font-semibold text-secondary-blue mb-5 text-center">Global LegalTech YBBO (CAGR) Projeksiyonu</h3>
+                    <div class="chart-container">
+                        <canvas id="globalGrowthRateChart"></canvas>
+                    </div>
+                     <p class="source-text mt-4 text-center">Kaynak: Derin Araştırma Raporu (Sektör Analizleri Sentezi), 2025</p>
+                </div>
+            </div>
+            <div class="mt-12 bg-white p-6 sm:p-10 rounded-xl shadow-2xl">
+                <h3 class="text-xl lg:text-2xl font-semibold text-main-blue mb-6 text-center">Pazardaki Temel İtici Güçler ve Engeller</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                    <div>
+                        <h4 class="text-lg sm:text-xl font-semibold text-green-600 mb-3 flex items-center">
+                            <span class="text-3xl mr-2">🚀</span> İtici Güçler
+                        </h4>
+                        <ul class="list-disc list-inside text-muted space-y-1.5 text-sm sm:text-base pl-2">
+                            <li>Artan verimlilik ve zaman tasarrufu ihtiyacı</li>
+                            <li>YZ'nin hukuki araştırmalarda sunduğu devrimsel potansiyel</li>
+                            <li>Yoğun dijitalleşme eğilimi ve teknolojiye hızlı adaptasyon</li>
+                            <li>Rekabetçi hukuk piyasası ve artan müvekkil beklentileri</li>
+                            <li>Türkiye'deki <strong class="font-medium text-gray-700">199.000+</strong> avukat popülasyonu (2024)</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-lg sm:text-xl font-semibold text-red-600 mb-3 flex items-center">
+                            <span class="text-3xl mr-2">🚧</span> Engeller
+                        </h4>
+                        <ul class="list-disc list-inside text-muted space-y-1.5 text-sm sm:text-base pl-2">
+                            <li>Standart ve erişilebilir veri tabanı eksiklikleri</li>
+                            <li>KVKK uyumu ve YZ alanındaki yasal belirsizlikler</li>
+                            <li>Teknoloji adaptasyonunda olası kültürel direnç</li>
+                            <li>Nitelikli disiplinlerarası (Hukuk-YZ) uzman eksikliği</li>
+                            <li>Hesaplamalı hukuka yönelik akademik/kurumsal çekinceler</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="yz-adaptasyon-ihtiyaclar" class="mb-16 sm:mb-24 scroll-mt-24">
+            <h2 class="section-title text-main-blue mb-10 text-center">Yapay Zeka Adaptasyonu ve Avukatların Teknoloji İhtiyaçları</h2>
+            <div class="text-center text-muted mb-12 max-w-3xl mx-auto leading-relaxed">
+                Global hukuk firmalarının <span class="big-stat accent-color !text-4xl">%65</span>'i 2024 itibarıyla düzenli olarak Üretken YZ araçlarını kullanmaktadır. Türkiye'de YZ tabanlı LegalTech çözümlerine olan talep "gelişmekte" olup, avukatların öncelikli ihtiyaçları bu adaptasyon sürecini şekillendirmektedir.
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12">
+                <div class="stat-card">
+                    <h3 class="text-xl lg:text-2xl font-semibold text-secondary-blue mb-5 text-center">Türkiye'de Avukatların YZ Araçlarına Yaklaşımı (Tahmini)</h3>
+                     <div class="chart-container" style="height: 310px; max-height:360px;">
+                        <canvas id="turkeyAIAdoptionChart"></canvas>
+                    </div>
+                    <p class="source-text mt-4 text-center">Kaynak: Derin Araştırma Raporu (Varsayımsal Anket Verileri Sentezi), 2025</p>
+                </div>
+                <div class="stat-card">
+                    <h3 class="text-xl lg:text-2xl font-semibold text-secondary-blue mb-5 text-center">Avukatların Teknoloji İhtiyaç Önceliği (Tahmini)</h3>
+                    <div class="chart-container">
+                        <canvas id="lawyerTechNeedsChart"></canvas>
+                    </div>
+                    <p class="source-text mt-4 text-center">Kaynak: Derin Araştırma Raporu (Sektörel Gözlemler ve İhtiyaç Analizi), 2025</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="rekabet-swot" class="mb-16 sm:mb-24 scroll-mt-24">
+            <h2 class="section-title text-main-blue mb-10 text-center">Rekabet Ortamı ve "Derin Araştırma" SWOT Analizi</h2>
+            <div class="text-center text-muted mb-12 max-w-3xl mx-auto leading-relaxed">
+                Türkiye LegalTech pazarında Sinerji, Kazancı gibi yerleşik oyuncuların yanı sıra Attornaid, Enidia AI gibi yeni nesil YZ platformları da bulunmaktadır. "Derin Araştırma", <strong class="font-semibold text-secondary-blue">"olay örgüsü" analizi</strong> gibi benzersiz bir satış önerisi (USP) ile bu dinamik pazarda kendine stratejik bir yer edinmeyi hedeflemektedir.
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-start">
+                <div class="stat-card">
+                    <h3 class="text-xl lg:text-2xl font-semibold text-secondary-blue mb-5 text-center">Türkiye LegalTech Pazarındaki Tahmini Oyuncu Dağılımı</h3>
+                    <div class="chart-container" style="height: 310px; max-height:360px;">
+                        <canvas id="turkeyMarketShareChart"></canvas>
+                    </div>
+                    <p class="source-text mt-4 text-center">Kaynak: Derin Araştırma Raporu (Rakip Analizi ve Varsayımlar), 2025</p>
+                </div>
+                <div class="stat-card p-4 sm:p-6">
+                    <h3 class="text-xl lg:text-2xl font-semibold text-secondary-blue mb-5 text-center">"Derin Araştırma" Platformu SWOT Analizi</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 text-sm">
+                        <div class="swot-box border-green-500">
+                            <h4 class="text-green-700 text-lg">Güçlü Yönler (S)</h4>
+                            <ul class="list-disc list-inside text-muted space-y-1 mt-2">
+                                <li>Benzersiz "olay örgüsü" analizi</li>
+                                <li>Yüksek arama doğruluğu/hızı</li>
+                                <li>Önemli zaman tasarrufu</li>
+                                <li>Türkçe ve Türk hukukuna özel</li>
+                                <li>Yenilikçi teknoloji imajı</li>
+                            </ul>
+                        </div>
+                        <div class="swot-box border-red-500">
+                            <h4 class="text-red-700 text-lg">Zayıf Yönler (W)</h4>
+                            <ul class="list-disc list-inside text-muted space-y-1 mt-2">
+                                <li>Düşük marka bilinirliği (ilk)</li>
+                                <li>Veri tabanı maliyeti/zorluğu</li>
+                                <li>Yüksek Ar-Ge maliyeti</li>
+                                <li>Kanıtlanmış kullanıcı yok</li>
+                                <li>Nitelikli uzman bulma zor.</li>
+                            </ul>
+                        </div>
+                        <div class="swot-box border-sky-500">
+                            <h4 class="text-sky-700 text-lg">Fırsatlar (O)</h4>
+                            <ul class="list-disc list-inside text-muted space-y-1 mt-2">
+                                <li>Büyüyen TR LegalTech pazarı</li>
+                                <li>Bağlamsal analiz boşluğu</li>
+                                <li>Verimlilik araçlarına talep</li>
+                                <li>Baro/Üniversite işbirlikleri</li>
+                                <li>Ek YZ modülleri potansiyeli</li>
+                            </ul>
+                        </div>
+                        <div class="swot-box border-amber-500">
+                            <h4 class="text-amber-700 text-lg">Tehditler (T)</h4>
+                            <ul class="list-disc list-inside text-muted space-y-1 mt-2">
+                                <li>KVKK/YZ yasal belirsizlikleri</li>
+                                <li>Veri erişimi/kalitesi kısıtları</li>
+                                <li>Artan yerel/global rekabet</li>
+                                <li>Kullanıcı adaptasyon direnci</li>
+                                <li>Ekonomik dalgalanmalar</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="hedef-kitle" class="mb-16 sm:mb-24 scroll-mt-24">
+            <h2 class="section-title text-main-blue mb-10 text-center">Hedef Kitle: Türk Avukatları</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mb-12">
+                <div class="stat-card text-center p-5 sm:p-7 bg-light-blue-custom">
+                    <div class="big-stat accent-color">199K+</div>
+                    <p class="text-muted font-medium mt-1 text-sm sm:text-base">Türkiye'deki Toplam Avukat (2024 Sonu)</p>
+                     <p class="source-text mt-1">Kaynak: TBB</p>
+                </div>
+                <div class="stat-card text-center p-5 sm:p-7 bg-light-blue-custom">
+                    <div class="big-stat accent-color">~48%</div>
+                    <p class="text-muted font-medium mt-1 text-sm sm:text-base">Kadın Avukat Oranı (Yaklaşık)</p>
+                    <p class="source-text mt-1">Kaynak: TBB</p>
+                </div>
+                <div class="stat-card text-center p-5 sm:p-7 bg-light-blue-custom">
+                    <div class="big-stat accent-color">İST-ANK-İZM</div>
+                    <p class="text-muted font-medium mt-1 text-sm sm:text-base">Avukat Yoğunluğunun En Fazla Olduğu Şehirler</p>
+                    <p class="source-text mt-1">Kaynak: TBB</p>
+                </div>
+            </div>
+            <p class="text-center text-muted mb-10 max-w-3xl mx-auto leading-relaxed">
+                "Derin Araştırma"nın birincil hedefi, teknolojiye açık, verimlilik arayan bireysel avukatlar ve KOBİ hukuk bürolarıdır. Özellikle genç avukatların ve dijital araçları aktif kullanan profesyonellerin platformumuza adaptasyonunun daha yüksek olması beklenmektedir.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12">
+                <div class="stat-card">
+                    <h3 class="text-xl lg:text-2xl font-semibold text-secondary-blue mb-5 text-center">Avukat Demografisi: Büyük Şehirler (Cinsiyet Dağılımı)</h3>
+                    <div class="chart-container">
+                        <canvas id="lawyerDemographicsCityChart"></canvas>
+                    </div>
+                    <p class="source-text mt-4 text-center">Kaynak: TBB Verileri (Derin Araştırma Raporu Analizi), 2024</p>
+                </div>
+                <div class="stat-card">
+                    <h3 class="text-xl lg:text-2xl font-semibold text-secondary-blue mb-5 text-center">Avukatların Teknoloji Kullanım Alanları (Tahmini Önem Düzeyi)</h3>
+                    <div class="chart-container">
+                        <canvas id="lawyerTechUsageChart"></canvas>
+                    </div>
+                    <p class="source-text mt-4 text-center">Kaynak: Derin Araştırma Raporu (Sektörel Gözlemler ve Anket Sentezi), 2025</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="cozum-surec" class="mb-16 sm:mb-24 scroll-mt-24">
+            <h2 class="section-title text-main-blue mb-10 text-center">"Derin Araştırma" Çözümü: "Olay Örgüsü" Eşleştirme Süreci</h2>
+            <p class="text-center text-muted mb-12 max-w-3xl mx-auto leading-relaxed">
+                "Derin Araştırma", avukatların dava dosyalarındaki <strong class="font-semibold text-secondary-blue">"olay örgüsünü"</strong> derinlemesine analiz ederek en alakalı emsal kararları saniyeler içinde bulmalarını sağlayan, Türkiye'ye özel geliştirilmiş yenilikçi bir yapay zeka platformudur. Süreç, avukatların iş akışını kolaylaştırmak üzere tasarlanmıştır:
+            </p>
+            <div class="bg-white p-6 sm:p-10 rounded-xl shadow-2xl max-w-xl mx-auto">
+                <div class="space-y-6">
+                    <div class="flowchart-step">
+                        <div class="text-4xl mb-2 accent-color font-bold">1</div>
+                        <strong class="block text-lg sm:text-xl">Olay Örgüsü Girişi</strong>
+                        <p class="text-sm sm:text-base mt-1.5 text-muted">Avukat, dava dosyasındaki olgusal anlatıyı (davanın hikayesini, kilit noktalarını) platforma doğal dilde metin olarak girer.</p>
+                    </div>
+                    <div class="flowchart-arrow transform rotate-90 md:rotate-0">➔</div>
+                    <div class="flowchart-step">
+                        <div class="text-4xl mb-2 accent-color font-bold">2</div>
+                        <strong class="block text-lg sm:text-xl">Yapay Zeka İle Bağlamsal Analiz</strong>
+                        <p class="text-sm sm:text-base mt-1.5 text-muted">Gelişmiş Türkçe NLP ve makine öğrenimi algoritmalarımız, girilen metni derinlemesine analiz eder; hukuki unsurları, tarafları, eylemleri, zaman ve mekan bağlamını ve olgusal örüntüleri hassasiyetle tanımlar.</p>
+                    </div>
+                    <div class="flowchart-arrow transform rotate-90 md:rotate-0">➔</div>
+                    <div class="flowchart-step">
+                        <div class="text-4xl mb-2 accent-color font-bold">3</div>
+                        <strong class="block text-lg sm:text-xl">Akıllı Emsal Karar Eşleştirme</strong>
+                        <p class="text-sm sm:text-base mt-1.5 text-muted">Yapay zeka, analiz edilen "olay örgüsünü", kapsamlı ve sürekli güncellenen Türk mahkeme kararları veri tabanımızdaki milyonlarca kararla semantik olarak karşılaştırır, en yüksek benzerlik ve alaka skoruna sahip emsalleri titizlikle belirler.</p>
+                    </div>
+                    <div class="flowchart-arrow transform rotate-90 md:rotate-0">➔</div>
+                    <div class="flowchart-step">
+                         <div class="text-4xl mb-2 accent-color font-bold">4</div>
+                         <strong class="block text-lg sm:text-xl">Net ve Anlaşılır Sonuç Sunumu</strong>
+                        <p class="text-sm sm:text-base mt-1.5 text-muted">En alakalı emsal kararlar; karar özetleri, ilgili kilit paragraflar, benzerlik skorları ve potansiyel hukuki argüman bağlantılarıyla birlikte, avukatın kolayca değerlendirebileceği, kullanıcı dostu bir arayüzde sunulur.</p>
+                    </div>
+                     <div class="flowchart-arrow transform rotate-90 md:rotate-0">➔</div>
+                    <div class="flowchart-step bg-sky-50 border-sky-300 text-sky-700">
+                         <div class="text-4xl mb-2 text-sky-600 font-bold">5</div>
+                         <strong class="block text-lg sm:text-xl">Stratejik Hukuki Kullanım</strong>
+                        <p class="text-sm sm:text-base mt-1.5">Avukat, elde ettiği isabetli emsal kararları dava stratejisini güçlendirmek, dilekçelerini daha etkili hazırlamak, müvekkiline daha sağlam danışmanlık vermek ve duruşmalara tam donanımlı girmek için kullanır.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="is-modeli-gelecek" class="mb-10 sm:mb-16 scroll-mt-24">
+            <h2 class="section-title text-main-blue mb-10 text-center">İş Modeli Özeti ve Gelecek Perspektifi</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mb-12">
+                <div class="stat-card text-center p-5 sm:p-7 transform hover:scale-105">
+                    <div class="big-stat accent-color">€650</div>
+                    <p class="text-muted font-semibold mt-1 text-base sm:text-lg">Yıllık Abonelik</p>
+                    <p class="text-xs text-gray-500">(Kullanıcı Başına)</p>
+                </div>
+                <div class="stat-card text-center p-5 sm:p-7 transform hover:scale-105">
+                    <div class="big-stat accent-color">500+</div>
+                    <p class="text-muted font-semibold mt-1 text-base sm:text-lg">Hedeflenen İlk Yıl Kullanıcı</p>
+                     <p class="text-xs text-gray-500">(Minimum)</p>
+                </div>
+                <div class="stat-card text-center p-5 sm:p-7 transform hover:scale-105">
+                    <div class="big-stat accent-color">€325K+</div>
+                    <p class="text-muted font-semibold mt-1 text-base sm:text-lg">Hedeflenen İlk Yıl Gelir</p>
+                     <p class="text-xs text-gray-500">(Minimum)</p>
+                </div>
+            </div>
+            <div class="bg-white p-6 sm:p-10 rounded-xl shadow-2xl">
+                <p class="text-base sm:text-lg leading-relaxed mb-5 text-muted">
+                    "Derin Araştırma" platformu, SaaS (Hizmet Olarak Yazılım) modeliyle, kullanıcı başına yıllık <strong class="font-semibold text-secondary-blue">650 Euro</strong> abonelik ücreti üzerinden sürdürülebilir bir gelir akışı oluşturmayı hedeflemektedir. MVP (Minimum Uygulanabilir Ürün) geliştirme maliyetinin <strong class="font-semibold text-secondary-blue">100.000 – 170.000 Euro</strong>, aylık operasyonel maliyetlerin ise başlangıçta <strong class="font-semibold text-secondary-blue">10.000 – 15.000 Euro</strong> aralığında olması öngörülmektedir. Gerçekçi senaryoda, başabaş noktasına <strong class="font-semibold text-secondary-blue">~350-450 aktif abone</strong> ile ikinci yılın ortalarında ulaşılması hedeflenmektedir.
+                </p>
+                <p class="text-base sm:text-lg leading-relaxed text-muted">
+                    Gelecekte, kurumsal müşterilere yönelik özel çözümler, API erişimi ve gelişmiş analitik modüller gibi ek gelir kaynakları da stratejik olarak değerlendirilecektir. Türkiye LegalTech pazarındaki dinamik büyüme potansiyeli ve "Derin Araştırma"nın sunduğu benzersiz "olay örgüsü" analizi değer önerisi dikkate alındığında, platformun, etkin risk yönetimi ve stratejik uygulama ile Türkiye hukuk pazarında lider bir oyuncu olma ve avukatların çalışma biçimlerini dönüştürme potansiyeli yüksektir.
+                </p>
+                 <p class="text-xl sm:text-2xl leading-relaxed mt-8 font-bold text-center text-main-blue">
+                    Hukuk pratiğinizde yapay zekanın gücünü keşfedin. <br class="sm:hidden"><span class="accent-color">Derin Araştırma</span> ile geleceğin hukukuna bugünden ortak olun!
+                </p>
             </div>
         </section>
 
     </main>
 
-    <footer class="bg-dark-gray text-white text-center py-6 mt-10">
-        <p>&copy; 2025 AI Destekli Hukuk Platformu Fizibilite Raporu.</p>
-        <p class="text-xs mt-1">Bu infografik, kullanıcı tarafından sağlanan güncel maliyet ve gelir verileri ile genel pazar analizlerine dayanmaktadır.</p>
+    <footer class="bg-gray-900 text-gray-300 text-center py-12">
+        <p class="text-sm">&copy; 2025 Derin Araştırma (Varsayımsal Proje). Tüm hakları saklıdır.</p>
+        <p class="text-xs opacity-60 mt-2">Bu infografik, "Derin Araştırma Pazar Analizi Raporu" (ID: 47f46435-55ef-40a9-9ed4-755e13041713) temel alınarak, genel bilgilendirme ve <br class="sm:hidden">varsayımsal analiz amacıyla oluşturulmuştur. Gerçek veriler ve sonuçlar farklılık gösterebilir.</p>
     </footer>
 
     <script>
-        // Chart.js is linked, but no charts are actively generated in this version
-        // as the data is presented in tables and stat cards.
-        // If charts are needed later, Chart.js setup can be added here.
-        const primaryBlue = '#0077B6';
-        const secondaryTeal = '#00B4D8';
-        // ... other color constants if needed for dynamic JS styling
+        const CHART_COLORS = {
+            mainBlue: '#2563EB',    // Tailwind Blue 600
+            secondaryBlue: '#3B82F6', // Tailwind Blue 500
+            lightBlue: '#DBEAFE',    // Tailwind Blue 100 (for backgrounds/fills)
+            accentOrange: '#F59E0B', // Tailwind Amber 500
+            darkGrayText: '#1F2937',  // Tailwind Gray 800
+            mediumGrayText: '#4B5563',// Tailwind Gray 600
+            lightGrayGrid: '#E5E7EB', // Tailwind Gray 200
+            softWhiteBg: '#F9FAFB'    // Tailwind Gray 50
+        };
+
+        function wrapLabels(label, maxWidth) {
+            if (typeof label !== 'string' || label.length <= maxWidth) {
+                return label;
+            }
+            const words = label.split(' ');
+            let lines = [];
+            let currentLine = '';
+            for (const word of words) {
+                if ((currentLine + (currentLine ? ' ' : '') + word).length > maxWidth && currentLine.length > 0) {
+                    lines.push(currentLine);
+                    currentLine = word;
+                } else {
+                    currentLine += (currentLine ? ' ' : '') + word;
+                }
+            }
+            if (currentLine) {
+                lines.push(currentLine);
+            }
+            return lines;
+        }
+        
+        const commonChartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    labels: {
+                        color: CHART_COLORS.darkGrayText,
+                        font: { size: 11, family: 'Inter', weight: '500' }
+                    }
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(31, 41, 55, 0.85)', // Tailwind Gray 800 with opacity
+                    titleColor: '#FFFFFF',
+                    bodyColor: '#E5E7EB', // Tailwind Gray 200
+                    titleFont: { family: 'Inter', weight: '600', size: 13 },
+                    bodyFont: { family: 'Inter', size: 12 },
+                    padding: 10,
+                    cornerRadius: 6,
+                    displayColors: true,
+                    borderColor: 'rgba(255,255,255,0.1)',
+                    borderWidth: 1,
+                    callbacks: {
+                        title: function(tooltipItems) {
+                            const item = tooltipItems[0];
+                            let label = item.chart.data.labels[item.dataIndex];
+                            if (Array.isArray(label)) {
+                              return label.join(' ');
+                            } else {
+                              return label;
+                            }
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: { 
+                        color: CHART_COLORS.mediumGrayText,
+                        font: { size: 10, family: 'Inter' }
+                    },
+                    grid: { color: CHART_COLORS.lightGrayGrid, borderDash: [2,3] }
+                },
+                x: {
+                    ticks: { 
+                        color: CHART_COLORS.mediumGrayText,
+                        font: { size: 10, family: 'Inter' },
+                        callback: function(value, index, values) {
+                            const label = this.getLabelForValue(value);
+                            return wrapLabels(label, 9); // X-axis labels slightly shorter wrap
+                        }
+                    },
+                    grid: { display: false }
+                }
+            },
+            animation: {
+                duration: 800,
+                easing: 'easeInOutQuart'
+            }
+        };
+
+        // Tahmini Türkiye LegalTech Pazar Büyüklüğü (Bar Chart)
+        // Data from report: "Türkiye'de BİT sektörü 2022'de iletişim teknolojileri için 13 milyar USD, bilgi teknolojileri için ise 11.7 milyar USD"
+        // Assume LegalTech is a small but growing fraction of this. These are illustrative based on general growth narrative.
+        const turkeyMarketSizeCtx = document.getElementById('turkeyMarketSizeChart').getContext('2d');
+        new Chart(turkeyMarketSizeCtx, {
+            type: 'bar',
+            data: {
+                labels: ['2022', '2023', '2024 (T)', '2025 (P)'],
+                datasets: [{
+                    label: 'Pazar Büyüklüğü (Milyon Euro)',
+                    data: [120, 150, 190, 240], // Varsayımsal Euro cinsinden, artan trend
+                    backgroundColor: CHART_COLORS.mainBlue,
+                    borderColor: CHART_COLORS.secondaryBlue,
+                    borderWidth: 1.5,
+                    borderRadius: 6,
+                    barPercentage: 0.65,
+                    categoryPercentage: 0.7
+                }]
+            },
+            options: {...commonChartOptions, plugins: {...commonChartOptions.plugins, legend: {display: false}}}
+        });
+
+        // Global LegalTech Yıllık Büyüme Oranı (CAGR) (Line Chart)
+        // Data from report: Global CAGR around %9-10
+        const globalGrowthRateCtx = document.getElementById('globalGrowthRateChart').getContext('2d');
+        new Chart(globalGrowthRateCtx, {
+            type: 'line',
+            data: {
+                labels: ['2025-27', '2027-29', '2029-31', '2031-32 (P)'],
+                datasets: [{
+                    label: 'Global LegalTech YBBO (%)',
+                    data: [9.2, 9.6, 9.9, 10.1], // Rapordaki %9-10 bandına uygun varsayımsal trend
+                    borderColor: CHART_COLORS.accentOrange,
+                    backgroundColor: 'rgba(245, 158, 11, 0.1)', // Tailwind Amber 500 with alpha
+                    tension: 0.4,
+                    fill: true,
+                    pointBackgroundColor: CHART_COLORS.accentOrange,
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: CHART_COLORS.accentOrange,
+                    pointHoverRadius: 8,
+                    pointRadius: 6,
+                    borderWidth: 2.5
+                }]
+            },
+            options: commonChartOptions
+        });
+
+        // Türkiye'de Avukatların YZ Araçlarına Yaklaşımı (Donut Chart)
+        // Data from report: "Global hukuk firmalarının %65'i ... Üretken YZ araçlarını kullanmaktadır." Türkiye için tahmin.
+        const turkeyAIAdoptionCtx = document.getElementById('turkeyAIAdoptionChart').getContext('2d');
+        new Chart(turkeyAIAdoptionCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Aktif YZ Kullanan', 'YZ Kullanmayı Planlayan', 'Henüz Değerlendirmeyen/Kullanmayan'],
+                datasets: [{
+                    label: 'YZ Araçlarına Yaklaşım (%)',
+                    data: [22, 38, 40], // Varsayımsal (Global %65'e göre Türkiye'de daha düşük olabilir)
+                    backgroundColor: [CHART_COLORS.mainBlue, CHART_COLORS.secondaryBlue, CHART_COLORS.lightGrayGrid],
+                    borderColor: CHART_COLORS.softWhiteBg,
+                    borderWidth: 4,
+                    hoverOffset: 10,
+                    hoverBorderColor: CHART_COLORS.softWhiteBg,
+                    hoverBorderWidth: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '65%',
+                plugins: {
+                    legend: { position: 'bottom', labels: { ...commonChartOptions.plugins.legend.labels, padding:15, usePointStyle: true, pointStyle: 'rectRounded' } },
+                    tooltip: { ...commonChartOptions.plugins.tooltip,
+                        callbacks: {
+                            ...commonChartOptions.plugins.tooltip.callbacks,
+                            label: function(context) {
+                                return `${context.label}: ${context.parsed}%`;
+                            }
+                        }
+                    }
+                },
+                animation: { animateScale: true, animateRotate: true, duration: 1000 }
+            }
+        });
+
+        // Avukatların Teknoloji İhtiyaç Önceliği (Horizontal Bar Chart)
+        const lawyerTechNeedsCtx = document.getElementById('lawyerTechNeedsChart').getContext('2d');
+        new Chart(lawyerTechNeedsCtx, {
+            type: 'bar', 
+            data: {
+                labels: [
+                    wrapLabels('Hızlı ve Doğru Emsal Araştırma', 20),
+                    wrapLabels('Dava ve Dosya Yönetim Sistemleri', 20),
+                    wrapLabels('Doküman Otomasyonu ve Akıllı Yönetim', 20),
+                    wrapLabels('Güvenli Müvekkil İletişim Portalları', 20),
+                    wrapLabels('KVKK ve Veri Güvenliği Çözümleri', 20)
+                ],
+                datasets: [{
+                    label: 'Önem Derecesi (10 üzerinden)',
+                    data: [9.6, 8.9, 8.3, 8.0, 9.2], // Varsayımsal veriler (Rapordaki metinden esinlenerek)
+                    backgroundColor: CHART_COLORS.secondaryBlue,
+                    borderColor: CHART_COLORS.mainBlue,
+                    borderWidth: 1.5,
+                    borderRadius: 6,
+                }]
+            },
+            options: { ...commonChartOptions, indexAxis: 'y', plugins: {...commonChartOptions.plugins, legend: {display: false}}, scales: { ...commonChartOptions.scales, x: { ...commonChartOptions.scales.x, suggestedMax: 10 } } }
+        });
+
+        // Türkiye LegalTech Pazarındaki Tahmini Oyuncu Dağılımı (Pie Chart)
+        // Rakipler: Sinerji, Kazancı, Attornaid, Enidia AI
+        const turkeyMarketShareCtx = document.getElementById('turkeyMarketShareChart').getContext('2d');
+        new Chart(turkeyMarketShareCtx, {
+            type: 'pie',
+            data: {
+                labels: [
+                    wrapLabels('Sinerji Mevzuat', 16), 
+                    wrapLabels('Kazancı İçtihat', 16), 
+                    wrapLabels('Attornaid & Benzerleri', 16), 
+                    wrapLabels('Diğer Yerel Çözümler', 16), 
+                    wrapLabels('Derin Araştırma (Hedef)', 16)
+                ],
+                datasets: [{
+                    label: 'Tahmini Pazar Payı (%)',
+                    data: [32, 28, 15, 15, 10], // Varsayımsal veriler
+                    backgroundColor: [CHART_COLORS.mainBlue, CHART_COLORS.secondaryBlue, CHART_COLORS.accentOrange, CHART_COLORS.lightBlue, '#66BB6A'], // Green for Derin Araştırma
+                    borderColor: CHART_COLORS.softWhiteBg,
+                    borderWidth: 4,
+                    hoverOffset: 10,
+                    hoverBorderColor: CHART_COLORS.softWhiteBg,
+                    hoverBorderWidth: 4
+                }]
+            },
+             options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom', labels: { ...commonChartOptions.plugins.legend.labels, padding:15, usePointStyle: true, pointStyle: 'circle' } }, 
+                     tooltip: { ...commonChartOptions.plugins.tooltip,
+                        callbacks: {
+                             ...commonChartOptions.plugins.tooltip.callbacks,
+                            label: function(context) {
+                                return `${context.label}: ${context.parsed}%`;
+                            }
+                        }
+                    }
+                },
+                animation: { animateScale: true, animateRotate: true, duration: 1000 }
+            }
+        });
+
+        // Avukat Demografisi (Büyük Şehirler - Cinsiyet) (Stacked Bar Chart)
+        // Data from report: İstanbul (65.772 avukat), Ankara (25.383 avukat), İzmir (13.919 avukat)
+        // 96.108 kadın avukat, 103.034 erkek avukat (Toplam: 199.142)
+        const totalAv = 199142;
+        const kadinAv = 96108;
+        const erkekAv = 103034;
+        const istAv = 65772;
+        const ankAv = 25383;
+        const izmAv = 13919;
+
+        const lawyerDemographicsCityCtx = document.getElementById('lawyerDemographicsCityChart').getContext('2d');
+        new Chart(lawyerDemographicsCityCtx, {
+            type: 'bar',
+            data: {
+                labels: [wrapLabels(`İstanbul (${(istAv/1000).toFixed(1)}K)`,10), wrapLabels(`Ankara (${(ankAv/1000).toFixed(1)}K)`,10), wrapLabels(`İzmir (${(izmAv/1000).toFixed(1)}K)`,10)],
+                datasets: [
+                    {
+                        label: 'Kadın Avukat',
+                        data: [ (kadinAv/totalAv)*istAv, (kadinAv/totalAv)*ankAv, (kadinAv/totalAv)*izmAv ],
+                        backgroundColor: CHART_COLORS.mainBlue,
+                        borderRadius: 4,
+                    },
+                    {
+                        label: 'Erkek Avukat',
+                        data: [ (erkekAv/totalAv)*istAv, (erkekAv/totalAv)*ankAv, (erkekAv/totalAv)*izmAv ],
+                        backgroundColor: CHART_COLORS.secondaryBlue,
+                        borderRadius: 4,
+                    }
+                ]
+            },
+            options: {
+                ...commonChartOptions,
+                scales: {
+                    x: { stacked: true, ticks: { ...commonChartOptions.scales.x.ticks, font: {size:9}} },
+                    y: { stacked: true, ticks: { ...commonChartOptions.scales.y.ticks, callback: function(value) { return (value/1000).toFixed(0) + 'K';} } }
+                },
+                plugins: { ...commonChartOptions.plugins, legend: { position: 'top', labels: {...commonChartOptions.plugins.legend.labels, font: {size:10}} }}
+            }
+        });
+
+        // Avukatların Teknoloji Kullanım Alanları (Radar Chart)
+        const lawyerTechUsageCtx = document.getElementById('lawyerTechUsageChart').getContext('2d');
+        new Chart(lawyerTechUsageCtx, {
+            type: 'radar',
+            data: {
+                labels: [
+                    wrapLabels('Emsal Araştırma', 15), 
+                    wrapLabels('Dava Yönetimi', 15), 
+                    wrapLabels('Doküman Otomasyonu', 15), 
+                    wrapLabels('Müvekkil İletişimi (Dijital)', 15), 
+                    wrapLabels('Online Hukuk Eğitimi', 15)
+                ],
+                datasets: [{
+                    label: 'Mevcut Kullanım Seviyesi (1-10)',
+                    data: [7.5, 6.8, 5.5, 8.2, 6.0], // Varsayımsal veriler
+                    fill: true,
+                    backgroundColor: 'rgba(59, 130, 246, 0.25)', // secondaryBlue with alpha
+                    borderColor: CHART_COLORS.secondaryBlue,
+                    pointBackgroundColor: CHART_COLORS.secondaryBlue,
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: CHART_COLORS.secondaryBlue,
+                    borderWidth: 2,
+                    pointRadius: 4,
+                    pointHoverRadius: 6
+                }, {
+                    label: 'Gelecekteki Önem Algısı (1-10)',
+                    data: [9.2, 8.5, 8.0, 8.8, 7.5], // Varsayımsal veriler
+                    fill: true,
+                    backgroundColor: 'rgba(245, 158, 11, 0.25)', // accentOrange with alpha
+                    borderColor: CHART_COLORS.accentOrange,
+                    pointBackgroundColor: CHART_COLORS.accentOrange,
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: CHART_COLORS.accentOrange,
+                    borderWidth: 2,
+                    pointRadius: 4,
+                    pointHoverRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'top', labels: { color: CHART_COLORS.darkGrayText, font: {size: 10, family: 'Inter'} } },
+                    tooltip: commonChartOptions.plugins.tooltip
+                },
+                scales: {
+                    r: {
+                        angleLines: { color: CHART_COLORS.lightGrayGrid },
+                        grid: { color: CHART_COLORS.lightGrayGrid },
+                        pointLabels: { 
+                            font: { size: 10, family: 'Inter', weight: '500' }, 
+                            color: CHART_COLORS.mediumGrayText,
+                            callback: function(label) { return wrapLabels(label, 11); } 
+                        },
+                        ticks: {
+                            backdropColor: 'transparent',
+                            color: CHART_COLORS.mediumGrayText,
+                            stepSize: 2,
+                            font: {size: 9, family: 'Inter'}
+                        },
+                        suggestedMin: 0,
+                        suggestedMax: 10
+                    }
+                },
+                elements: { line: { borderWidth: 2.5 } }
+            }
+        });
+
+        // Sticky Nav Aktif Bölüm Vurgulama ve Kaydırma
+        const navLinksObserver = document.querySelectorAll('.sticky-nav a');
+
+        const observerOptionsNav = {
+            root: null,
+            rootMargin: '-40% 0px -60% 0px', // Adjust margins to trigger when section is more centered
+            threshold: 0.01 // Smallest visibility
+        };
+
+        const intersectionCallback = (entries) => {
+            entries.forEach(entry => {
+                const id = entry.target.getAttribute('id');
+                const navLink = document.querySelector(`.sticky-nav a[href="#${id}"]`);
+                if (entry.isIntersecting && entry.intersectionRatio > 0) {
+                    navLinksObserver.forEach(link => link.classList.remove('active'));
+                    if (navLink) {
+                        navLink.classList.add('active');
+                    }
+                }
+            });
+        };
+        
+        const observerNav = new IntersectionObserver(intersectionCallback, observerOptionsNav);
+        document.querySelectorAll('section[id]').forEach(section => {
+            observerNav.observe(section);
+        });
+
+        // Smooth scroll for nav links
+        navLinksObserver.forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    // Calculate position considering sticky nav height
+                    const navHeight = document.querySelector('.sticky-nav').offsetHeight;
+                    const targetPosition = targetElement.offsetTop - navHeight - 10; // 10px offset
+
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Update active class immediately on click for better UX
+                    navLinksObserver.forEach(link => link.classList.remove('active'));
+                    this.classList.add('active');
+                }
+            });
+        });
+
     </script>
 </body>
 </html>
